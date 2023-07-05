@@ -1,10 +1,23 @@
-GET http://localhost:3000/api/storage
+GET http://localhost:3000/api/planets
 
 ###
 
-POST http://localhost:3000/api/storage
+POST http://localhost:3000/api/planets
 content-type: application/json
 
 {
-  "value": "asdf"
+  "value": "Earth"
 }
+
+###
+
+PUT http://localhost:3000/api/planets/2
+content-type: application/json
+
+{
+  "value": "Mars"
+}
+
+###
+
+DELETE http://localhost:3000/api/planets/1
