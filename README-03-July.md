@@ -12,7 +12,7 @@ Run:
 This will start your nodejs app.
 Expressjs server will run on **localhost:3000**.
 
-## Start editing the **src/server.ts** file.
+## Start editing the **src/server2.ts** file.
 
 Exercise 1:
 
@@ -32,7 +32,7 @@ app.listen(port, () => {
 
 Exercise 2:
 
-Create an array of planet objects in server.ts, that look like this:
+Create an array of planet objects in server2.ts, that look like this:
 [
   {
     id: 0,
