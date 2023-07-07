@@ -1,10 +1,15 @@
 import * as crypto from "crypto";
 
-
-function generateRandomId(length) {
+function RandomId(length) {
     const bytes = crypto.randomBytes(length);
     return bytes.toString('hex');
 }
 
-const randomId = generateRandomId(8);
-console.log(randomId);
+const Id = RandomId(8);
+console.log(Id);
+module.exports = RandomId
+
+// importing it with require
+// const RId = require('./crypto.js');
+// RId()
+
