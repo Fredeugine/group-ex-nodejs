@@ -48,29 +48,38 @@ const create = (req, res) => {
 
 // Update a planet by ID
 const updateById = (req, res) => {
-    const {id} = req.params
-    const  {val} = req.body
-    if (planets[id-1] && planets[id-1].id === Number(id)){
-        planets[id-1].name = val
-        res.status(200).json({msg: 'Updated successfuly'} )
-    }
-    else{
-        res.json({msg: `Planet with id = ${id} isnt available`})
+    const { id } = req.params;
+    const { val } = req.body;
+
+    planets = planets.map((planet) => {
+        if (planet.id === Number(id)) {
+            return { ...planet, name: val };
+        }
+        return planet;
+    });
+
+    const updatedPlanet = planets.find((planet) => planet.id === Number(id));
+
+    if (updatedPlanet) {
+        res.status(200).json({ msg: 'Updated successfully' });
+    } else {
+        res.json({ msg: `Planet with id = ${id} isn't available` });
     }
 };
+
 
 // Delete a planet by ID
 const deleteById = (req, res) => {
     const {id} = req.params;
-    const planetIndex = planets.findIndex((p) => p.id === Number(id));
+    const filteredPlanets = planets.filter((p) => p.id !== Number(id));
 
-    if (planets[Number(id) - 1]) {
-        planets.splice(planetIndex, 1);
+    if (filteredPlanets.length < planets.length) {
+        planets = filteredPlanets;
+        res.status(200).json({ msg: 'Planet deleted successfully' });
         for (let i = 0; i < planets.length; i++) {
             planets[i].id = i + 1
         }
         currId = planets.length + 1
-        res.json({ msg: 'Planet deleted successfully' });
     } else {
         res.status(404).json({ msg: `Planet with ID ${id} not found` });
     }
