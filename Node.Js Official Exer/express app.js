@@ -41,7 +41,7 @@ app.get('/api/planets/:id', (req, res) => {
     const {id} = req.params
     // planets already staart with id as 1, an id of 0 isnt valid
     if (planets[id-1]){
-        res.json(planets[id-1])
+        res.json(planets[id-1])s
     }
     else{
         res.json({msg: `Planet with id = ${id} isnt available`})
