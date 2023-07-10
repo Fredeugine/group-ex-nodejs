@@ -1,46 +1,47 @@
 # Getting started:
-Fork, then clone this repository and run
+Fork and clone this repository, and run
 
     npm install
 
 Inside the repository.
 
+Start editing the **src/app.js** file for the react part, and **src/server/server.ts** for the express.js server part.
+
 Run:
 
     npm run dev
 
-This will start your nodejs app.
-Expressjs server will run on **localhost:3000**.
+This will start the react app and the server app at the same time, with hot reload enabled for both of them.
 
-## Start editing the **src/server2.ts** file.
+React app will run on **localhost:3000** and the express server needs to be created, to run on **localhost:3001**.
 
-Create an array of planet objects in server2.ts, that look like this:
+You should use:
+
+    import cors from "cors";
+    app.use(cors());
+
+to enable CORS for the express.js server, so that it accepts http requests from the react app.
+
+For the backend:
+
+Create a variable that stores a list of items, that look like:
 [
   {
     id: 0,
-    name: "Mars"
+    content: "Hello"
   },
   {
     id: 1,
-    name: "Jupiter"
+    content: "World"
   }
 ]
 
-Define a GET route for /api/planets that sends a JSON response with a list of planets.
-Define additional routes as needed, such as POST, PUT, and DELETE routes for creating, updating, and deleting planets.
+Implement CRUD operations for this list, using "/api/items" as the base API url.
 
-Start the server by calling app.listen() and specify the port number to listen on, which will be 3000.
+For the frontend:
 
-`In the provided code, there is a variable var1 declared but not used. Modify the code to assign the value "Hello, World!" to var1.
+Add an input tag and a button tag called "Save" at the top of the page, and when we click on the button Save, we send that item to the backend to save it there, and also display it in a list in the frontend.
+Make it so when the page loads, we load all the items from the backend, and display them in a list.
 
-Create a new endpoint that accepts a GET request to "/api/planets/:id" and returns the details of the planet with the corresponding ID. The response should include the planet's name and ID.
+Add a Delete button to each item, that deletes that item from the list.
 
-Implement error handling for the GET endpoint mentioned in the previous step. If the requested planet ID does not exist, return a JSON response with an appropriate error message and a 404 status code.
-
-Add validation to the POST endpoint ("/api/planets") to ensure that the request body contains a valid value for the planet's name. If the name is missing or empty, return a JSON response with an appropriate error message and a 400 status code.
-
-Implement error handling for the PUT endpoint ("/api/planets/:id"). If the requested planet ID does not exist, return a JSON response with an appropriate error message and a 404 status code.
-
-Create a new DELETE endpoint ("/api/planets") that deletes all planets from the list. The response should include a status message confirming the deletion.
-
-Test the API endpoints using a tool like Postman or cURL to ensure they work correctly.`
