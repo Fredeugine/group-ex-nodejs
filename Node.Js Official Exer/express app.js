@@ -41,7 +41,7 @@ app.get('/api/planets/:id', (req, res) => {
     const {id} = req.params
     // planets already staart with id as 1, an id of 0 isnt valid
     if (planets[id-1]){
-        res.json(planets[id-1])s
+        res.json(planets[id-1])
     }
     else{
         res.json({msg: `Planet with id = ${id} isnt available`})
@@ -62,8 +62,8 @@ app.put('/api/planets/:id',(req, res)=>{
 // DELETE /api/planets/:id: delete a planet by id, return only 200 code and a success JSON with key msg
 app.delete('/api/planets/:id',(req, res)=>{
     const {id} = req.params
-    if (planets[id - 1 ]){
-        planets.splice(Number(id - 1),1)
+    if (planets[Number(id) - 1]){
+        planets.splice(Number(id) - 1,1)
         for (let i = 0; i < planets.length; i++) {
             planets[i].id = i + 1
         }
