@@ -18,7 +18,7 @@
   },
   "scripts": {
     "dev:frontend": "react-scripts start",
-    "dev:backend": "tsc-watch --noClear -p ./tsconfig.json --outDir ./dist --onSuccess \"node ./dist/server.js\"",
+    "dev:backend": "tsc-watch --noClear -p ./tsconfig.json --outDir ./dist --onSuccess \"node ./dist/server/server.js\"",
     "dev": "npm-run-all --parallel dev:backend dev:frontend",
     "build": "react-scripts build",
     "test": "react-scripts test",

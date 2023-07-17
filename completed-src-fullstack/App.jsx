@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import "./App.css";
 import ItemComponent from "./ItemComponent";
+import "./App.css";
 
 const API_URL = "http://localhost:3001/api/items";
 
@@ -8,23 +8,23 @@ function App() {
   const inputRef = useRef();
   const [dataList, setDataList] = useState([]);
 
-  const getData = async () => {
-    let response = await fetch(API_URL, {
-      method: "GET",
+  const deleteItem = async (id) => {
+    await fetch(API_URL + "/" + id, {
+      method: "DELETE",
     });
-    let responseJson = await response.json();
-    setDataList(responseJson.list);
+    getData();
   };
 
   useEffect(() => {
     getData();
   }, []);
 
-  const deleteItem = async (id) => {
-    let response = await fetch(API_URL + "/" + id, {
-      method: "DELETE",
+  const getData = async () => {
+    let response = await fetch(API_URL, {
+      method: "GET",
     });
-    getData();
+    let responseJson = await response.json();
+    setDataList(responseJson.list);
   };
 
   return (

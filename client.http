@@ -1,8 +1,8 @@
-GET http://localhost:3000/api/planets
+GET http://localhost:3001/api/items
 
 ###
 
-POST http://localhost:3000/api/planets
+POST http://localhost:3001/api/items
 content-type: application/json
 
 {
@@ -11,7 +11,7 @@ content-type: application/json
 
 ###
 
-PUT http://localhost:3000/api/planets/2
+PUT http://localhost:3001/api/items/9999
 content-type: application/json
 
 {

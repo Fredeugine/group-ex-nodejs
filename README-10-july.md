@@ -40,12 +40,8 @@ Implement CRUD operations for this list, using "/api/items" as the base API url.
 
 For the frontend:
 
-Update the ItemComponent to display the item in an input tag. Receive the item text as a prop, set it in your state.
-When the user changes the text in the input tag of your ItemComponent, update the state, and make a PUT request to the server to update that item.
+Add an input tag and a button tag called "Save" at the top of the page, and when we click on the button Save, we send that item to the backend to save it there, and also display it in a list in the frontend.
+Make it so when the page loads, we load all the items from the backend, and display them in a list.
 
+Add a Delete button to each item, that deletes that item from the list.
 
-For the Backend:
-
-Implement an app.put() endpoint, which will update an item using the text and id received from the frontend.
-The URL for the app.put() looks like this:
-"/api/items/:id"
