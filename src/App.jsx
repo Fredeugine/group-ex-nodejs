@@ -1,8 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import "./App.css";
 import ItemComponent from "./ItemComponent";
-
-const API_URL = "http://localhost:3001/api/items";
+import { API_URL } from "./constants";
 
 function App() {
   const inputRef = useRef();

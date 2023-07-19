@@ -1,23 +1,11 @@
 import { useRef, useState, useEffect } from "react";
-import ItemComponent from "./ItemComponent";
 import "./App.css";
-
-const API_URL = "http://localhost:3001/api/items";
+import ItemComponent from "./ItemComponent";
+import { API_URL } from "./constants";
 
 function App() {
   const inputRef = useRef();
   const [dataList, setDataList] = useState([]);
-
-  const deleteItem = async (id) => {
-    await fetch(API_URL + "/" + id, {
-      method: "DELETE",
-    });
-    getData();
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   const getData = async () => {
     let response = await fetch(API_URL, {
@@ -26,6 +14,30 @@ function App() {
     let responseJson = await response.json();
     setDataList(responseJson.list);
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const deleteItem = async (id) => {
+    let response = await fetch(API_URL + "/" + id, {
+      method: "DELETE",
+    });
+    getData();
+  };
+
+  const sortByRecent = () => {
+    let dataCopy = [...dataList];
+    dataCopy.sort((a, b) => a.timestamp - b.timestamp);
+    setDataList(dataCopy);
+  };
+
+  const sortByOldest = () => {
+    let dataCopy = [...dataList];
+    dataCopy.sort((a, b) => b.timestamp - a.timestamp);
+    setDataList(dataCopy);
+  };
+  // setDataList(dataList.slice().sort((a, b) => b.timestamp - a.timestamp));
 
   return (
     <div className="main-content">
@@ -49,6 +61,8 @@ function App() {
       >
         Save
       </button>
+      <button onClick={sortByRecent}>Sort by Recent</button>
+      <button onClick={sortByOldest}>Sort by Oldest</button>
 
       <div>
         {dataList.map((el) => (

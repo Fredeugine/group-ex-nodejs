@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "./constants";
 
 type ItemComponentPropType = {
@@ -15,24 +15,32 @@ export default function ItemComponent({
   const [textState, setTextState] = useState(text);
 
   useEffect(() => {
+    updateServerData(textState, id);
+  }, [textState]);
+
+  const updateServerData = (text, id) => {
     fetch(API_URL + "/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        value: textState,
+        value: text,
       }),
     });
-  }, [textState]);
-
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setTextState(ev.target.value);
   };
 
   return (
     <div>
-      <input type="text" value={textState} onChange={handleChange} />
+      {/* <input
+        type="text"
+        value={textState}
+        onChange={(ev) => {
+          let textVar = ev.target.value;
+          setTextState(textVar);
+        }}
+      /> */}
+      <span>{text}</span>
       <button
         onClick={() => {
           deleteItem(id);
