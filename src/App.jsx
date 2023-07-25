@@ -12,6 +12,13 @@ function App() {
       method: "GET",
     });
     let responseJson = await response.json();
+    let receivedData = responseJson.list;
+
+    if (localStorage.getItem("sortType") === "recent") {
+      receivedData.sort((a, b) => a.timestamp - b.timestamp);
+    } else {
+      receivedData.sort((a, b) => b.timestamp - a.timestamp);
+    }
     setDataList(responseJson.list);
   };
 
@@ -24,6 +31,24 @@ function App() {
       method: "DELETE",
     });
     getData();
+  };
+
+  const setSortType = (typeArg) => {
+    localStorage.setItem("sortType", typeArg);
+  };
+
+  const sortByRecent = () => {
+    let dataArrayCopy = [...dataList];
+    dataArrayCopy.sort((a, b) => a.timestamp - b.timestamp);
+    setDataList(dataArrayCopy);
+    setSortType("recent");
+  };
+
+  const sortByOldest = () => {
+    let dataArrayCopy = [...dataList];
+    dataArrayCopy.sort((a, b) => b.timestamp - a.timestamp);
+    setDataList(dataArrayCopy);
+    setSortType("oldest");
   };
 
   return (
@@ -49,9 +74,13 @@ function App() {
         Save
       </button>
 
+      <button onClick={sortByRecent}>Sort by Recent</button>
+      <button onClick={sortByOldest}>Sort by Oldest</button>
+
       <div>
         {dataList.map((el) => (
           <ItemComponent
+            key={el.id + "itemcomp"}
             deleteItem={deleteItem}
             text={el.content}
             id={el.id}

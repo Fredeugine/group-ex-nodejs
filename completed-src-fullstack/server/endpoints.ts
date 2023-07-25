@@ -1,11 +1,4 @@
-import cors from "cors";
-import express, { Request, Response } from "express";
-
-const app = express();
-const port = 3001;
-
-app.use(express.json());
-app.use(cors());
+import { Request, Response } from "express";
 
 type Item = {
   id: number;
@@ -16,11 +9,16 @@ type Item = {
 let itemsArr: Item[] = [];
 let currentId = 100;
 
-app.get("/api/items", (req, res) => {
+export function getAll(req, res) {
   res.json({ list: itemsArr });
-});
+}
 
-app.post("/api/items", (req: Request, res: Response) => {
+export function sortAll(req, res) {
+  itemsArr.sort((a, b) => a.timestamp - b.timestamp);
+  res.json({ list: itemsArr });
+}
+
+export function createItem(req: Request, res: Response) {
   var value = req.body.value;
   itemsArr.push({
     id: currentId,
@@ -31,17 +29,16 @@ app.post("/api/items", (req: Request, res: Response) => {
   currentId = currentId + 1;
 
   res.json({ status: "ok", list: itemsArr });
-});
+}
 
-// DELETE http://localhost:3001/api/items/2
-
-app.delete("/api/items/:id", (req, res) => {
+export function deleteByID(req, res) {
+  // DELETE http://localhost:3001/api/items/2
   const id = Number(req.params.id);
   itemsArr = itemsArr.filter((item) => item.id !== id);
   res.json({ status: "ok", list: itemsArr });
-});
+}
 
-app.put("/api/items/:id", (req: Request, res: Response) => {
+export function updateByID(req: Request, res: Response) {
   const id = Number(req.params.id);
   var value = req.body.value;
 
@@ -60,8 +57,4 @@ app.put("/api/items/:id", (req: Request, res: Response) => {
   });
 
   res.json({ status: "ok", list: itemsArr });
-});
-
-app.listen(port, () => {
-  console.log("Server started on port", port);
-});
+}
