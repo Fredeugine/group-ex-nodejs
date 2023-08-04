@@ -1,6 +1,8 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
-
+import pgPromise from "pg-promise";
+const db = pgPromise()('postgres://postgres:Fred@2003@localhost:3006/Fredo')
+console.log(db)
 const app = express();
 const port = 3001;
 
@@ -17,7 +19,20 @@ let itemsArr: Item[] = [];
 let currentId = 100;
 
 app.get("/api/items", (req, res) => {
-  res.json({ list: itemsArr });
+  db.none(`
+DROP TABLE IF EXISTS planets;
+CREATE TABLE planets (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL
+);
+
+INSERT INTO planets (name) VALUES ('earth');
+SELECT * FROM planets
+`)
+  db.any('SELECT * FROM planets')
+      .then(data => {
+        res.json(data);
+      })
 });
 
 app.post("/api/items", (req: Request, res: Response) => {
